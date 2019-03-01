@@ -1,2 +1,2 @@
-#Thinking in React
-These are notes to ingrain basics concepts of how react works.
+<h1>Thinking in React</h1>
+These are notes helped me ingrain basic concepts of React.
