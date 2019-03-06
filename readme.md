@@ -44,7 +44,7 @@ For more:https://reactjs.org/docs/handling-events.html
 
 Ans. React is all javascript so it needs an element where it can render out it's own DOM tree. Thats where the component get created.
 
-### what is DOM?
+### What is DOM?
 Document Object Model is the representation of structured text in memory. so while HTML is text, the DOM is the in-memory representation of this text. Hence, you can have multiple DOM of the same HTML e.g. the same page loaded on many tabs.
 
 Whenever we want to dynamically change the content of a webpage we modify the DOM.
@@ -63,6 +63,14 @@ Virtual DOM is a light weight representation of the real DOM which is cheap to c
 When we change the state of a component we get a new react element. React will then compare this element and its children with the previous version and figures out what has changed and then it will update a part of the browser DOM to keep it in sync with the virtual DOM.
 So, basically we just change the state of our components and React will automatically update the DOM to match that state.
 
+### Difference between state and props?
+Ans. State is an internal variable of a component while props are external. Props are used to pass data from parent to child or a component itself---> Unidirectional data flow. Props enable us to write reusable components e.g. a Heading can be reused multiple times with a different  message through prop values passed to it by different components. Prop can not be modified inside the Heading component, a different version has to be passed down to it by different components. Props are can be passed as second argument of createElement() or  tag attributes in JSX.
+A parents value of a state variable name becomes the childs this.props.name. From childs perspective the prop is immutable, if it needs to be changed it has to be changed as parents internal state.
+However, there is a way for a child to request its parent to change its name prop through a callback or event like onNameChanged and the parent would subscribe to the event by passing a callback handler. The child would pass its new name as an arg to the event callback and parent would use the new name in the event handler.
+
+Props are immutable that is why we have state to manipulate a component data using setState.
+We can not update the props of a component using a method like we do for the state using handleIncrement()
+The component that owns a piece of the state should be the one modifying it.
 
 
 
