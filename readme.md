@@ -72,6 +72,11 @@ Props are immutable that is why we have state to manipulate a component data usi
 We can not update the props of a component using a method like we do for the state using handleIncrement()
 The component that owns a piece of the state should be the one modifying it.
 
+### What is global context?
+Ans. It is a way to pass data down the component tree without having to pass props manually at every level. Some props might be required globally by many components throughout the app like locale and language preference. 
+Context should be used sparingly as it  reduces reusability. Component composition is a simpler alternative when props have to be used through many levels but not all.
+
+
 
 
 
