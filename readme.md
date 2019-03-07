@@ -76,6 +76,11 @@ The component that owns a piece of the state should be the one modifying it.
 Ans. It is a way to pass data down the component tree without having to pass props manually at every level. Some props might be required globally by many components throughout the app like locale and language preference. 
 Context should be used sparingly as it  reduces reusability. Component composition is a simpler alternative when props have to be used through many levels but not all.
 
+### Java question- How do you interact with web in Java?
+Ans. We can use GWT Google Web Toolkit. It provides a layer of abstraction for web browsers so the developer can still develop the frontend in backend framework. A webpage is seen as an object oriented 
+view as network of interconnected objects instead of a document. GWT java code is transpiled into Javascript which runs in browser. It can be compared to a framework like Angular which handles the MVC in browser. In MVC is separation of concerns like logic from design. Model layer is responsible for Database interaction(select,update, insert, delete). View is the UI layer usually HTML/css. Controller is responsible for receives input from using visiting a page or submitting a form requests like(get,post,put,delete). Gets data from the model and passes data to the view. It is middleman between model and view.
+
+
 
 
 
