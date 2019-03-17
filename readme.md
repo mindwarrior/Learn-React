@@ -142,8 +142,19 @@ Solution 4 is the classes. Classes code is like Java classes.
 >>>typeof operator in JS
 
 `console.log(typeof 43);`
-
 output: number
+
+To check for object
+
+`typeof bar === "object" is a reliable way of checking if `bar`
+is an object!
+
+But, JS also considers null an object. Gotcha!
+
+`javascript
+var bar = null;
+console.log(typeof bar ==="object"); `
+output: true
 
 
 
