@@ -22,6 +22,7 @@ function is called as a method of the object then its context is local, that is 
 context is the object.
 
 ### How to bind:
+```javascript
 class Foo {
   constructor(name){
     this.name = name
@@ -35,6 +36,7 @@ var foo = new Foo('Kartik');
 foo.display(); // Kartik
 var display = foo.display;
 display(); // Kartik
+```
 
 There are other ways to bind but binding inside constructor is preferable.
 For more:https://reactjs.org/docs/handling-events.html
@@ -152,6 +154,17 @@ is an object!
 var bar = [];
 console.log(typeof bar ==="object"); //output: true
 ```
+To check if an object is actually an array we have to check its constructor.
+```javascript
+var bar = [];
+console.log(typeof bar ==="object" && bar.constructor === Array); //output: true
+```
+In ES6:
+```javascript
+var bar = [];
+console.log(Array.isArray(bar)); //output: true
+```
+
 But, JS also considers null an object. Gotcha!
 
 ```javascript
@@ -165,8 +178,10 @@ var bar = null;
 console.log((bar != null) && (typeof bar ==="object"); //output: false
 ```
 
-types : undefined, object/null, boolean, number, string, symbol, function
+types : undefined, object/null, boolean, number, string, symbol, function, NaN etc.
 all types have to be put in double quotes for explicit comparison.
+
+
 
 
 
