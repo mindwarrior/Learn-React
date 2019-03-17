@@ -80,6 +80,62 @@ Context should be used sparingly as it  reduces reusability. Component compositi
 Ans. We can use GWT Google Web Toolkit. It provides a layer of abstraction for web browsers so the developer can still develop the frontend in backend framework. A webpage is seen as an object oriented 
 view as network of interconnected objects instead of a document. GWT java code is transpiled into Javascript which runs in browser. It can be compared to a framework like Angular which handles the MVC in browser. In MVC is separation of concerns like logic from design. Model layer is responsible for Database interaction(select,update, insert, delete). View is the UI layer usually HTML/css. Controller is responsible for receives input from using visiting a page or submitting a form requests like(get,post,put,delete). Gets data from the model and passes data to the view. It is middleman between model and view.
 
+OOP Solution 2
+
+function userCreater(name, score){
+  const newUser = Object.create(functionStore);
+  newUser.name = name;
+  return newUser;
+};
+
+const functionStore = {
+  increment: function(){this.score++;},
+  login: function(){console.log("ur logged in!");}
+};
+
+const user1 = userCreater("Will", 3);
+user1.increment();
+
+
+
+Problem is access control because you can access the entire functionStore and print out all the functions.
+
+JS first looks in object if it doesn't find increment it then looks in
+functionStore as the object has a bond which points to a user defined 
+functionStore or an inbuilt JS function store.
+
+This is bond is made of chain dunder protos. _ _Proto_ _
+
+Solution 3: new keyword automates return statement, creation of the object. We use the this keyword to refer to this new object as we never did the assignement.
+
+We use the JS concept that every function is also an object.
+Inside this object we have another object: prototype object.
+
+function UserCreator(name, score){
+  this.name = name;
+  this.score = score;
+}
+
+UserCreator.prototype.increment = function(){this.score++};
+UserCreator.prototype.login = function(){console.log("login");};
+
+const user1 = new UserCreator("Will", 3);
+
+user1.increment();
+
+userCreator function is created also an object with a protype object
+in Global Memory. then it doesnt find increment inside prototype so it
+just creates that inside the prototype object.
+
+Then on hitting the const user1 = new UserCreator("Will", 3); we 
+create a new Execution context with its own local memory.
+With a this object this.name = will and score:3. and dunder proto 
+which points to userccreater's prototype in global.
+
+Then user1.increment ccreates its own exe context with this.score++ ie 
+user1.score++. it looks in lm for score then looks in global and increments it.
+
+Solution 4 is the classes. Classes code is like Java classes.
 
 
 
