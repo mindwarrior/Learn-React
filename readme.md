@@ -148,7 +148,10 @@ To check for object
 
 `typeof bar === "object" is a reliable way of checking if `bar`
 is an object!
-
+```javascript
+var bar = [];
+console.log(typeof bar ==="object"); //output: true
+```
 But, JS also considers null an object. Gotcha!
 
 ```javascript
@@ -161,6 +164,11 @@ Simply, check if bar is null to avoid this pitfall.
 var bar = null;
 console.log((bar != null) && (typeof bar ==="object"); //output: false
 ```
+
+types : undefined, object/null, boolean, number, string, symbol, function
+all types have to be put in double quotes for explicit comparison.
+
+
 
 
 
