@@ -153,8 +153,8 @@ But, JS also considers null an object. Gotcha!
 
 ```javascript
 var bar = null;
-console.log(typeof bar ==="object"); 
-```//output: true
+console.log(typeof bar ==="object"); //output: true
+```
 
 
 
