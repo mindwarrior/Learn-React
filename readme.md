@@ -156,6 +156,13 @@ var bar = null;
 console.log(typeof bar ==="object"); //output: true
 ```
 
+Simply, check if bar is null to avoid this pitfall.
+```javascript
+var bar = null;
+console.log((bar != null) && (typeof bar ==="object"); //output: false
+```
+
+
 
 
 
