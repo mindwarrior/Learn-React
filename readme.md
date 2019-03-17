@@ -151,9 +151,10 @@ is an object!
 
 But, JS also considers null an object. Gotcha!
 
-`javascript
+```javascript
 var bar = null;
-console.log(typeof bar ==="object"); `
+console.log(typeof bar ==="object"); 
+```
 output: true
 
 
