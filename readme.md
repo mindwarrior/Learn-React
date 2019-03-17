@@ -140,9 +140,9 @@ Solution 4 is the classes. Classes code is like Java classes.
 
 
 >>>typeof operator in JS
-'''
+
 console.log(typeof 43);
-'''
+
 output: number
 
 
