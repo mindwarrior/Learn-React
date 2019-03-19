@@ -82,7 +82,7 @@ Context should be used sparingly as it  reduces reusability. Component compositi
 Ans. We can use GWT Google Web Toolkit. It provides a layer of abstraction for web browsers so the developer can still develop the frontend in backend framework. A webpage is seen as an object oriented 
 view as network of interconnected objects instead of a document. GWT java code is transpiled into Javascript which runs in browser. It can be compared to a framework like Angular which handles the MVC in browser. In MVC is separation of concerns like logic from design. Model layer is responsible for Database interaction(select,update, insert, delete). View is the UI layer usually HTML/css. Controller is responsible for receives input from using visiting a page or submitting a form requests like(get,post,put,delete). Gets data from the model and passes data to the view. It is middleman between model and view.
 
-OOP Solution 2
+OOP in JavaScript Solution 2
 
 function userCreater(name, score){
   const newUser = Object.create(functionStore);
@@ -180,6 +180,133 @@ console.log((bar != null) && (typeof bar ==="object"); //output: false
 
 types : undefined, object/null, boolean, number, string, symbol, function, NaN etc.
 all types have to be put in double quotes for explicit comparison.
+
+### How to make object properties immutable in JS.
+Ans. using Object.defineProperty method.
+Object.freeze makes the object immutable.
+Object.seal - you can change the value of existing properties but can not add new properties.
+```javascript
+let profile = {
+  name: 'panorama'
+};
+
+Object.defineProperty(profile, 'age',{
+  value:3,
+  writable: false
+})
+
+profile.name = 'wideshot';
+profile.age = 4;
+console.log(profile); //output: name: "wideshot", age:3
+```
+### How to remove duplicates in a Array.
+```javascript
+let nums = [1, 2, 2, 3];
+console.log([...new Set(nums)]); // output: [1, 2, 3]
+```
+Above the spread operator converts the new set into an array.
+In Java we can do this simply by adding the array to a hashset.
+
+```java 
+import java.util.*;
+class Removedupes{
+    public static void main(String[] args){
+        int[] a = {1,2,2,3,4,1,1};
+        HashSet<Integer> hs = new HashSet<Integer>();
+        for(int i=0;i<a.length;i++){
+            hs.add(a[i]);
+        }
+        System.out.println(hs);        
+    }
+}
+```
+This takes more memory to store the hashset. If asked to do a inplace removal then:
+
+
+
+## let vs const
+const means the variable can not be reassigned.
+However, if the const stores an object it can be modified but not reinitialized.
+
+Let scope is limited to the code block it is defined in.
+var scope is limited to the function it is defined in.
+If we declare var global variable it attaches to the window object which is very undesirable because your variable maybe overridden 
+by external library we may use.But let global variable doesn't.
+
+We can resolve this problem by wrapping in a automatically invoked anonymous function.
+
+```javascript
+(function() {
+  //code here
+
+}());
+
+// another way to write
+!function(){/*Code here */}();
+~function(){/*Code here */}();
++function(){/*Code here */}();
+```
+If needed we can expose certain constructor like functions to outside world by passing a window variable in anonymous function.
+
+```javascript
+(function (window) ) {
+  
+  function Instance() {
+  }
+  window.Instance = Instance;
+} (window));
+
+//Then we can create multiple instances of our object
+
+var instance1 = new Instance();
+var instance2 = new Instance();
+```
+#### array.sort() in JS
+
+It sorts the elements as strings instead of numbers.
+
+const a = [1,2,15,30,5,45,7];
+console.log(a.sort());
+// output is [1, 15, 2, 30, 45, 5, 7]
+
+Solution to sort in ascending order
+
+console.log(a.sort((a,b)=> {
+  return a-b;
+}));
+
+#### Closures in JS
+Technically, any function where you are using variables defined outside the scope of the function is a closure.
+Closure are the functions with preserved data.
+
+```javascript
+function addTo(passed) {
+  function add(inner) {
+    return passed + inner;
+  }
+  return add;
+}
+
+var add7 = addTo(7); // <-- we put in add7 the function 'add' with passed = 7
+
+/* Because the addTo function returns it's inner function (return add;), what's exactly returning is a picture with this content:
+
+function add(inner) {
+	return 7 + inner;
+}
+
+We have assigned that 'picture' in add7, which has become effectively a function so now we can call it: */
+
+console.log(add7(3)) // <-- this returns 10
+
+```
+
+
+
+
+
+
+
 
 
 
