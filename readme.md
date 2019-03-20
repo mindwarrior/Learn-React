@@ -298,7 +298,39 @@ function add(inner) {
 We have assigned that 'picture' in add7, which has become effectively a function so now we can call it: */
 
 console.log(add7(3)) // <-- this returns 10
+```
+Q. typeof undefined == typeof NULL
+// returns true
+Because NULL is not null. JS is case sensitive hence it understands NULL as userdefined variable which has not been defined yet.
 
+#### Hoisting 
+is a JavaScript mechanism where variables and function declarations are moved to the top of their scope before code execution.
+
+Hoisting mechanism only moves the declaration. The assignments are left in place.
+In JavaScript, an undeclared variable is assigned the value undefined at execution and is also of type undefined.
+
+console.log(variable); // Output: ReferenceError: variable is not defined
+
+```javascript
+function hoist() {
+  a = 20;
+  var b = 100;
+}
+
+hoist();
+
+console.log(a); 
+/* 
+Accessible as a global variable outside hoist() function
+Output: 20
+*/
+
+console.log(b); 
+/*
+Since it was declared, it is confined to the hoist() function scope.
+We can't print it out outside the confines of the hoist() function.
+Output: ReferenceError: b is not defined
+*/
 ```
 
 
