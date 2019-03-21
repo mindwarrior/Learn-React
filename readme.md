@@ -19,7 +19,7 @@ global context as the function is not binded to an object. The solution is to
 bind the function to the object you want to refer to. To be clear if the function
 (containing this) is called from global scope then this context is global and if the 
 function is called as a method of the object then its context is local, that is the 
-context is the object.
+context is the object, so it also depends on how the function is called.
 
 ### How to bind:
 ```javascript
@@ -332,6 +332,68 @@ We can't print it out outside the confines of the hoist() function.
 Output: ReferenceError: b is not defined
 */
 ```
+
+The following code returns undefined because hoist is hoisted up and declared before the call but the default value assigned to it is undefined.
+
+```java
+console.log(hoist); // Output: undefined
+
+var hoist = 'The variable has been hoisted.';
+```
+Similarly if a variable is declared inside a function it will be hoisted upto function level hence it will reference to undefined if it is declared after being used.
+
+```javascript
+function hoist() {
+  console.log(message);
+  var message='Hoisting is all the rage!'
+}
+
+hoist(); // Ouput: undefined
+```
+If we enable strict mode : 'use strict';
+then same code above will output
+RefferenceError: hoist not defined
+
+#### In es6 
+```javascript
+console.log(hoist); // Output: ReferenceError: hoist is not defined ...
+let hoist = 'The variable has been hoisted.';
+```
+Hence, es6 is better at giving proper errors. If we used var then we will get undefined which obviously not what we expect.
+
+Javascript lets us use functions before defining them by hoisting.
+
+```javascript
+hoisted(); // Output: "This function has been hoisted."
+
+function hoisted() {
+  console.log('This function has been hoisted.');
+};
+```
+Q. To add element at start and end of array.
+
+var myArray = [1,2,2,3,4];
+myArray.push('end');
+myArray.unshift('start');
+console.log(myArray);
+
+//["start", 1, 2, 2, 3, 4, "end"]
+
+Q. How to clone an object?
+Using Object.clone() is a pitfall.
+
+We have to use Object.assign({}, myObj);
+
+Q. var x = 21;
+var girl = function () {
+    console.log(x);
+    var x = 20;
+};
+girl ();
+
+// output is undefined not 21 because JS first checks local finds the hoisted value which is undefined.
+
+
 
 
 
