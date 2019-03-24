@@ -19,8 +19,38 @@ global context as the function is not binded to an object. The solution is to
 bind the function to the object you want to refer to. To be clear if the function
 (containing this) is called from global scope then this context is global and if the 
 function is called as a method of the object then its context is local, that is the 
-context is the object, so it also depends on how the function is called.
+context is the object, so it mostly depends on how the function is called.
+Caveat in "use strict" the global object is undefined rather than window:
+```javascript
+function foo () {
+	'use strict';
+	console.log("Simple function call")
+	console.log(this === window); 
+}
 
+foo();	//prints false on console as in “strict mode” value of “this” in global execution context is undefined.
+```
+Another Example:
+```javascript
+function foo () {
+	'use strict';
+	console.log("Simple function call")
+	console.log(this === window); 
+}
+
+let user = {
+	count: 10,
+	foo: foo,
+	foo1: function() {
+		console.log(this === window);
+	}
+}
+user.foo()  // Prints false because now “this” refers to user object instead of global object.
+let fun1 = user.foo1;
+fun1() // Prints true as this method is invoked as a simple function.
+user.foo1()  // Prints false on console as foo1 is invoked as a object’s method
+```
+arrow functions don't have their own this context they use the this of enclosing context.
 ### How to bind:
 ```javascript
 class Foo {
@@ -277,7 +307,8 @@ console.log(a.sort((a,b)=> {
 
 #### Closures in JS
 Technically, any function where you are using variables defined outside the scope of the function is a closure.
-Closure are the functions with preserved data.
+Closure are the functions which can remember the previous run.
+We can return functions as output of functions.
 
 ```javascript
 function addTo(passed) {
@@ -380,7 +411,7 @@ console.log(myArray);
 //["start", 1, 2, 2, 3, 4, "end"]
 
 Q. How to clone an object?
-Using Object.clone() is a pitfall.
+Ans:Using Object.clone() is a pitfall.
 
 We have to use Object.assign({}, myObj);
 
@@ -391,7 +422,92 @@ var girl = function () {
 };
 girl ();
 
-// output is undefined not 21 because JS first checks local finds the hoisted value which is undefined.
+// output is undefined and not 21 because JS first checks local finds the hoisted value which is undefined.
+
+#### Execution Context
+
+The JS interpreter in a browser is implemented as a single thread. Only one thing can exceute at a time.
+All other actions or events are queued in a Execution stack. The browser by default loads in global execution context.
+Now, if the global code calls a function then a new execution context is created and pushed to the top of the execution stack. 
+If there is a nested inner function then again samething happens and a new execution context is pushed on top of the execution stack.
+When current function is done executing then the current context is popped off and control is given to the next higher context. this happens until we reach global context again.
+Hence, the execution stack is single threaded, synchronous execution with one Global Context.
+
+Every call to an execution context has 2 stages:
+1. Creation Stage(when fn is called but before any code inside is executed)
+> Create Scope Chain
+> Create variables, functions and arguments.
+> Determine the value of "this".
+2. Code Execution Stage:
+> Assign values, references to functions and interpret/execute code.
+
+Internally,
+executionContextObject ={ scopeChain:{variableObject + all parent execution context's variableObject}
+variableObject: { function args/params, inner variable and function declarations.}
+this: {}
+}
+
+Step 1: Interpretor finds a function call.
+Step 2: Before executing function code, it creates a new execution context.
+Step 3: Enter creation stage: 
+        *Initialize Scope chain
+        *Create variable object:
+          *Create arguments object, check context for params and create a property for variable name and value as per params.
+          *Scan context for function declarations:
+            *For each function found, create a property in variable object which is the function name having a reference pointer to the functionn in memory. Overwrite if function name already exists.
+          *Scan the context for variable declarations:
+            *For each variable declaration, create a property in variable and inititalize its value as undefined. Do nothing if property name already exists.
+        * Decide the value of this inside the context.
+Step 4: Run the code in context and assign variable values as the code is executed line by line.
+
+Now, hoisting makes perfect sense, for example:
+```javascript
+(function() {
+
+    console.log(typeof foo); // function pointer
+    console.log(typeof bar); // undefined
+
+    var foo = 'hello',
+        bar = function() {
+            return 'world';
+        };
+
+    function foo() {
+        return 'hello';
+    }
+
+}());​
+```   
+We can access foo before we declare it as we know functions are created in the variable object first before variables.
+Once, assigned we do nothing when the property name already exists when encounter the variable.
+bar is undefined because variables are created in creation stage but initialized with value of undefined.
+They are assigned real values in code execution phase when declaration line is encountered.
+##### Temporal Dead Zone
+ES6 variables let and const have a TDZ. When we enter scope of a let, a storage space for it is created in creation phase.
+However, it remains uninitialised and causes a ReferenceError if we try to get or set it before its declaration.
+When execution reaches its declaration then it is initialized by the assignment value. Const works similarly
+but const must be assigned a value at declaration.
+### Object Methods
+
+obj.method();
+
+these objects do the same
+
+let user = {
+  sayHi: function(){
+    alert("Hello");
+  }
+};
+This is shorthand and we can omit function and get same result. Behaviour might be different in inheritance.
+
+let user = {
+  sayHi(){
+    alert("Hello");
+  }
+};
+
+
+             
 
 
 
