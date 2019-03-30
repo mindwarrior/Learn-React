@@ -20,6 +20,70 @@ bind the function to the object you want to refer to. To be clear if the functio
 (containing this) is called from global scope then this context is global and if the 
 function is called as a method of the object then its context is local, that is the 
 context is the object, so it mostly depends on how the function is called.
+##### Value of this is defined as object only when it is called as a method and not as an independent function.
+```javascript
+function makeUser() {
+  return {
+    name: "John",
+    ref: this
+  };
+};
+
+let user = makeUser();
+
+alert( user.ref.name ); // Error: Cannot read property 'name' of undefined
+//Here the value of this inside makeUser() is undefined, because it is called as a function, not as a method.
+
+function makeUser() {
+  return {
+    name: "John",
+    ref() {
+      return this;
+    }
+  };
+};
+
+let user = makeUser();
+
+alert( user.ref().name ); // John
+//user.ref() is a method. And the value of this is set to the object before dot .
+```
+Example for how this flows and use of prompt function. The user is prompted for input and
+calculations done on those values.
+```javascript
+let calculator = {
+  sum(){ return this.a + this.b},
+  mul(){return this.a * this.b},
+  read(){
+    this.a = +prompt('enter a', 0);
+    this.b = +prompt('enter b', 0);
+  }
+};
+calculator.read();
+alert(calculator.sum());
+alert(calculator.mul());
+```
+Below is the code demo for CHAINING multiple calls in sequence. We have to return the object in every method:
+
+```javascript
+let ladder = {
+  step: 0,
+  up() {
+    this.step++;
+    return this;
+  },
+  down() {
+    this.step--;
+    return this;
+  },
+  showStep() {
+    alert( this.step );
+    return this;
+  }
+}
+
+ladder.up().up().down().up().down().showStep(); // 1
+```
 Caveat in "use strict" the global object is undefined rather than window:
 ```javascript
 function foo () {
@@ -50,7 +114,9 @@ let fun1 = user.foo1;
 fun1() // Prints true as this method is invoked as a simple function.
 user.foo1()  // Prints false on console as foo1 is invoked as a object’s method
 ```
-arrow functions don't have their own this context they use the this of enclosing context.
+>>> Value of this is evaluated at runtime and can be anything depending how the function is called.
+
+Arrow functions don't have their own this context they use the this of enclosing context.
 ### How to bind:
 ```javascript
 class Foo {
@@ -309,6 +375,8 @@ console.log(a.sort((a,b)=> {
 Technically, any function where you are using variables defined outside the scope of the function is a closure.
 Closure are the functions which can remember the previous run.
 We can return functions as output of functions.
+A closure is a function which remembers its outer variables and can access them. Functions in javascript automatically remember where they were created using a hidden scope chain property of every execution context and the scope chain is a collection of current context's variable object and all parent's lexical variable object.
+
 
 ```javascript
 function addTo(passed) {
