@@ -651,6 +651,72 @@ The space between two adjacent column grid lines. It is the single unit of the g
 ###### Grid Area
 specific area bound by row and columns grid lines. For example, grid area between row grid lines 1&3 and column grid lines 1&3.
 
+###### CSS Terms - Digression!
+
+Viewport is the area of the webpage visible to user. It will be smaller to a mobile user and larger for larger devices.
+
+###### Setting the viewport
+
+```css
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+```
+
+This will set the width of the page to follow the screen-width of the device.
+
+initial-scale-1.0 sets the initial zoom level.
+
+###### Responsive grid view before css grid c
+1.Set the all html elements to have box-sizing property set to border-box
+
+```css
+*{
+  box-sizing: border-box;
+}
+```
+2. Then set column widths using css.
+
+```css
+.menu{
+  width: 25%;
+  float: left;
+}
+.main{
+  width: 75%;
+  float: left;
+}
+```
+
+###### Media Query & Breakpoints
+```css
+@media only screen and (max-width: 600px){
+  body{
+    background-color: lightblue;
+  }
+}
+```
+Above it uses @media rule to include a block of css properties only if certain conditions are true. It will set the background color blue only if the size of the browser window is 600px or smaller.
+
+```css
+@media only screen and (max-width: 768px){
+  /* For mobile phones : */
+  [class*="col-"] {
+    width: 100%;
+  }
+}
+```
+Above code sets all tags with class like col-1, col-2 etc. to 100% width...rather than having different set widths on a larger device.
+
+Mobile first design means we should set the default width as the appropriate width for mobile and use a breakpoint to apply different widths for larger device.
+
+Explicit and Implicit rows, columns and size properties.
+
+Implicit properties we don't tell how many columns to show, we let the browser decide. The advantage is that we can need really less code to make the design responsive.
+for example if we use the grid-template-areas: repeat(auto-fit, minmax(80px, 1fr))
+
+What this tells the browser is "I would like you to make bunch of columns, I'm not gonna tell you how many to make, you decide how many to make. I want each of those columns to be a minimum of 80px and a max of 1fraction." So the moment there is another 80 px to have another column, browser adds another column. Or if there is not enough space subtract a column. And 1fr means that all columns will be same size of 1fr.
+
+grid-auto-rows: how tall the rows should be.
+grid-auto-flow: dense enables the browser to predict how to pack the items close to each other and not follow the order of numbering in html elements.
 
 
 
