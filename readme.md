@@ -574,6 +574,90 @@ let user = {
   }
 };
 
+=========================================
+General Frontend Questions
+Q1. What are the most important tools for you?
+
+Ans. It depends on the application, we have to use a tool according to what will get us more bang for our buck.
+For me I really like to use a code editor like Sublime or VScode. Chrome dev tools are also essential for any project. Also version control like Github. I also like to use Bootstrap4 or UI kit for the prebuilt features. Modern libraries like React with webpack and npm are great tools for a frontend project.
+
+Q2. What do you like about Node?
+Ans. es6 support, async/await, generators
+Also, the best thing is the LTS support so you can trust it long term.
+
+Q3. What do you like about css features?
+Ans. css grid
+
+Q4. What do you like in javascript?
+Ans. async/await, generators, es6 support, map/filter/reduce, Object.freeze, fetch, guarding, modules etc.
+
+Q5. what is the most difficult part of a frontend project?
+Ans. To make everything consistent in every browser. Choosing right tools for the job, avoid tech debt.
+
+Q6. How to make a slow website fast?
+Ans. Properly size images- have different image sizes of same image for different devices. Compress your images and text and code compression using browser supported content-encoding like gzip or brotli leads to faster load times for text based resources.
+Inlining the css required for the page to load. page load will not be blocked by delay in download of main.css which can be large.
+Adding progressive web app features like offline, add to home screen, push notifications is another way to make user interactions faster.
+using browser profiling tools to investigate, and reduce the number of http calls and using vanilla javascript.
+
+##### CSS Grid Layout
+
+It is a 2D system which can handle both columns and rows. We work with the grid layout by applying CSS rules both to parent element(Grid Container) and to that elements 
+children which are Grid items.
+Tables, floats, positioning and inline-block are basically hacks and leave out important functionality(vertical centering, for eg)
+Flexbox help to that extent but it is meant for simpler one-dimensional layouts, not complex 2D. Using Flexbox with Grid is a good idea though.
+
+###### Get started:
+1.Define a container element as grid with ```dispaly: grid``` and set column and row sizes with ```grid-template-columns``` and ```grid-template-rows```
+
+2.Place the child elements into the grid with ```grid-column``` and ```grid-row```.
+The source order of the grid items doesn't matter. The css can place them in any order.
+Hence, we can change the layout of the entire page to accomodate a different screen size using couple lines of code.
+
+######          Terminology
+
+###### Grid container
+The element on which display: grid is applied. It is the direct parent of all the grid items.
+
+```html
+<div class="container">
+  <div class="item item-1"></div>
+  <div class="item item-2"></div>
+  <div class="item item-3"></div>
+</div>
+```
+
+###### Grid Item
+The children of the grid container. In this example the items are grid items but sub-items is not.
+
+```html
+<div class="container">
+  <div class="item"></div>
+  <div class="item">
+    <p class="sub-item"></p>
+  </div>
+  <div class="item"></div>
+</div>
+```
+###### Grid Line
+The dividing lines that make up the structure of the grid. They can vertical or horizontal.
+
+###### Grid Track
+The space between two adjacent grid lines.
+
+###### Grid Cell
+The space between two adjacent column grid lines. It is the single unit of the grid.
+
+###### Grid Area
+specific area bound by row and columns grid lines. For example, grid area between row grid lines 1&3 and column grid lines 1&3.
+
+
+
+
+
+
+
+
 
              
 
